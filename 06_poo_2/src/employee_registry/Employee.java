@@ -5,13 +5,17 @@ import java.time.LocalDate;
 public abstract class Employee extends Person {
     private int id;
     private float salary;
-    private LocalDate startingContractDate;
+    private LocalDate contractStartingDate;
 
-    public Employee(int id, String name, byte age, float salary, LocalDate startingContractDate) {
+    public Employee(int id, String name, byte age, float salary, LocalDate contractStartingDate) {
         super(name, age);
         this.id = id;
         this.salary = salary;
-        this.startingContractDate = startingContractDate;
+        this.contractStartingDate = contractStartingDate;
+    }
+
+    public String introduce() {
+        return String.format("Hola soy %s.", this.getName());
     }
 
     public int getId() {
@@ -30,11 +34,12 @@ public abstract class Employee extends Person {
         this.salary = salary;
     }
 
-    public LocalDate getStartingContractDate() {
-        return startingContractDate;
+    public LocalDate getContractStartingDate() {
+        return contractStartingDate;
     }
 
-    public void setStartingContractDate(LocalDate startingContractDate) {
-        this.startingContractDate = startingContractDate;
+    public void setContractStartingDate(LocalDate contractStartingDate) {
+        this.contractStartingDate = contractStartingDate;
     }
 }
+

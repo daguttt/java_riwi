@@ -18,6 +18,7 @@ public class Inventory {
     }
 
     public static void showMenu(Inventory inventory) {
+        this.products
         try (var scanner = new Scanner(System.in)) {
             var inputGetter = new InputGetter(scanner);
             System.out.println("***********************************************************");
@@ -36,18 +37,18 @@ public class Inventory {
                         4. Buscar producto por nombre o categoria.
                         """;
                 System.out.println(optionsMessage);
-                int option = inputGetter.getInput("Ingresa la opción que deseas hacer: ", Scanner::nextInt);
+                int option = inputGetter.get("Ingresa la opción que deseas hacer: ", Scanner::nextInt);
 
 
                 switch (option) {
                     case 0 -> isMenuOpened = false;
                     case 1 -> {
                         scanner.nextLine();
-                        var productName = inputGetter.getInput("Ingresa el nombre del producto: ", Scanner::nextLine).toLowerCase().trim();
-                        var productPrice = inputGetter.getInput("Ingresa el precio del producto: ", Scanner::nextFloat);
+                        var productName = inputGetter.get("Ingresa el nombre del producto: ", Scanner::nextLine).toLowerCase().trim();
+                        var productPrice = inputGetter.get("Ingresa el precio del producto: ", Scanner::nextFloat);
                         scanner.nextLine();
-                        var productCategory = inputGetter.getInput("Ingresa la categoria del producto: ", Scanner::nextLine).toLowerCase().trim();
-                        var productBrand = inputGetter.getInput("Ingresa la marca del producto: ", Scanner::nextLine).toLowerCase().trim();
+                        var productCategory = inputGetter.get("Ingresa la categoria del producto: ", Scanner::nextLine).toLowerCase().trim();
+                        var productBrand = inputGetter.get("Ingresa la marca del producto: ", Scanner::nextLine).toLowerCase().trim();
                         inventory.addProduct(productName, productPrice, productCategory, productBrand);
                         System.out.println();
 
@@ -75,7 +76,7 @@ public class Inventory {
                     }
                     case 3 -> {
                         scanner.nextLine();
-                        var productNameToDelete = inputGetter.getInput("Introduce el nombre del producto que quieres eliminar: ", Scanner::nextLine);
+                        var productNameToDelete = inputGetter.get("Introduce el nombre del producto que quieres eliminar: ", Scanner::nextLine);
                         System.out.println();
                         try {
                             inventory.removeProductByName(productNameToDelete.trim().toLowerCase());
@@ -88,7 +89,7 @@ public class Inventory {
                     }
                     case 4 -> {
                         scanner.nextLine();
-                        var query = inputGetter.getInput("Introduce el nombre o la categoria del producto a buscar: ", Scanner::nextLine);
+                        var query = inputGetter.get("Introduce el nombre o la categoria del producto a buscar: ", Scanner::nextLine);
                         System.out.println();
                         var searchResult = inventory.findProductByCategoryOrName(query);
                         if (searchResult.isPresent()) {

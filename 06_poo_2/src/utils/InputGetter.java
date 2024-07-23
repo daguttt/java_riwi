@@ -11,7 +11,7 @@ public class InputGetter {
         this.scanner = scanner;
     }
 
-    public <T> T getInput(String prompt, Function<Scanner, T> extractorCb) {
+    public <T> T get(String prompt, Function<Scanner, T> extractorCb) {
         System.out.print(prompt);
         return extractorCb.apply(scanner);
     }

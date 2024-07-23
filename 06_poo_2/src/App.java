@@ -6,7 +6,9 @@ public class App {
         var inventory = new Inventory();
         Inventory.showMenu(inventory);
 
-
+        // Employee registry
+//        var employeeRegistry = new EmployeeRegistry();
+//        EmployeeRegistry.showMenu(employeeRegistry);
     }
 
 
