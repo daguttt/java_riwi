@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeRegistry {
-    private ArrayList<Employee> employees;
+    private final ArrayList<Employee> employees;
     private int idToAssignToEmployees = 1;
 
     public EmployeeRegistry() {
@@ -51,9 +51,7 @@ public class EmployeeRegistry {
 
 
             switch (option) {
-                case 0 -> {
-                    isMenuOpened = false;
-                }
+                case 0 -> isMenuOpened = false;
                 case 1 -> {
                     System.out.println();
                     System.out.println("Añadiendo empleado");
@@ -181,7 +179,8 @@ public class EmployeeRegistry {
     public boolean removeEmployeeById(int employeeIdToRemove) {
         var employeeToRemoveSearch = this.employees.stream().filter(e -> e.getId() == employeeIdToRemove).findFirst();
 
-        return employeeToRemoveSearch.map(employee -> this.employees.remove(employee)).orElse(false);
+//        return employeeToRemoveSearch.map(employee -> this.employees.remove(employee)).orElse(false);
+        return employeeToRemoveSearch.map(this.employees::remove).orElse(false);
     }
 
     public List<Employee> getEmployees() {
