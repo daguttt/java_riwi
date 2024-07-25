@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeRegistry {
-    private final ArrayList<Employee> employees;
+    private ArrayList<Employee> employees;
     private int idToAssignToEmployees = 1;
 
     public EmployeeRegistry() {
@@ -30,128 +30,95 @@ public class EmployeeRegistry {
         );
     }
 
-//    public static void showMenu(EmployeeRegistry employeeRegistry) {
-////        var employees = employeeRegistry.getEmployees();
-////
-////        for (var employee : employees) {
-////            System.out.println(employee.introduce());
-////            System.out.println();
-////        }
-//        try (var scanner = new Scanner(System.in)) {
-//            var inputGetter = new InputGetter(scanner);
-//            System.out.println("***********************************************************");
-//            System.out.println("Bienvenido a tu sistema de registro y control de empleados");
-//            System.out.println("***********************************************************");
-//            System.out.println();
-//
-//
-//            boolean isMenuOpened = true;
-//            while (isMenuOpened) {
-//                var optionsMessage = """
-//                        0. Salir.
-//                        1. Añadir empleado.
-//                        2. Listar empleados.
-//                        3. Eliminar empleado.
-//                        """;
-//                System.out.println(optionsMessage);
-//                int option = inputGetter.get("Ingresa la opción que deseas hacer: ", Scanner::nextInt);
-//
-//
-//                switch (option) {
-//                    case 0 -> isMenuOpened = false;
-//                    case 1 -> {
-////                        var promptContractEndingDate =
-////                                "Fecha de fin del contrato (Escribe 'saltar' si tiene contrato a término indefinido): ";
-////
-////                        scanner.nextLine();
-////                        var contractEndingDateInput = inputGetter.get(promptContractEndingDate, Scanner::nextLine)
-////                                .trim().toLowerCase();
-////
-////                        var contractEndingDate = LocalDate.parse(contractEndingDateInput);
-////
-////                        System.out.printf("%1$tB %1$td, %1$tY%n", contractEndingDate);
-//                        System.out.println("Añadiendo empleado");
-//                        System.out.println();
-//                        var nameInput = inputGetter.get("Nombre: ", Scanner::nextLine);
-//                        var ageInput = inputGetter.get("Edad: ", Scanner::nextByte);
-//                        var salaryInput = inputGetter.get("Salario: ", Scanner::nextFloat);
-//
-//                        // Contract starting date
-//                        scanner.nextLine();
-//                        var contractStartingDate = askForLocalDate("Fecha de inicio del contrato (Formato: YYYY-MM-DD): ", inputGetter, scanner);
-//
-//                        // Contract ending date
-//                        scanner.nextLine();
-//                        var promptContractEndingDate =
-//                                String.format("Fecha de fin del contrato (Formato: YYYY-MM-DD)%n  OTA:Escribe 'saltar' si tiene contrato a término indefinido): ");
-//                        var contractEndingDateInput = inputGetter.get(promptContractEndingDate, Scanner::nextLine)
-//                                .trim().toLowerCase();
-//
-//                        var SUCCESS_MESSAGE = "¡Empleado añadido con éxito!";
-//
-//                        if (contractEndingDateInput.equals("saltar")) {
-//                            employeeRegistry.addEmployee(nameInput, ageInput, salaryInput, contractStartingDate);
-//                            System.out.println(SUCCESS_MESSAGE);
-//                            break;
-//                        }
-//
-//                        var parsingResultContractEndingDate = DateStringParser.parse(contractEndingDateInput);
-//
-//                        if (parsingResultContractEndingDate.isEmpty()) {
-//                            System.out.println("Formato de fecha inválido.");
-//                            break;
-//                        }
-//
-//                        var contractEndingDate = parsingResultContractEndingDate.get();
-//
-//                        employeeRegistry.addEmployee(nameInput, ageInput, salaryInput, contractStartingDate, contractEndingDate);
-//                        System.out.println(SUCCESS_MESSAGE);
-//
-//                    }
-//                    case 2 -> {
-//                        System.out.println("Listando empleados");
-//                        var employees = employeeRegistry.getEmployees();
-//                        var tableHeader = String.format("| %-3s | %-15s | %-2s | %-10s | %-15s | %-15s |%n", "ID", "Nombre", "Edad", "Salario", "Fecha inicio contrato", "Fecha fin contrato");
-//                        System.out.println(tableHeader);
-//                        System.out.println("-".repeat(tableHeader.length()));
-//
-//                        for (int i = 0; i < employees.size(); i++) {
-//                            var employee = employees.get(i);
-//
-//                            switch (employee) {
-//                                case TemporalEmployee e -> {
-//                                    System.out.printf("");
-//
-//                                }
-//                                case PermanentEmployee e -> {
-//
-//                                }
-//                                default -> {
-//                                    throw new ClassNotFoundException("Derived Employee subclass not found ");
-//                                }
-//
-//                            }
-//
-//                            System.out.printf("| %-3d | ", i + 1, employee.getName(), employee.getAge(), employee.getSalary(), employee.getContractStartingDate());
-//                        }
-//
-//                        // Table Body
-//                        for (var product : products) {
-//                            var productName = Character.toUpperCase(product.getName().charAt(0)) + product.getName().substring(1).toLowerCase();
-//                            System.out.printf("| %-15s | %-15.2f |%n", productName, product.getPrice());
-//                        }
-//                    }
-//                    case 3 -> {
-//                        System.out.println("Eliminando empleado");
-//                    }
-//                    default -> {
-//                        System.out.println("Opción seleccionada inválida. Inténtalo de nuevo.");
-//                        System.out.println();
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public static void showMenu(EmployeeRegistry employeeRegistry, Scanner scanner) {
+        var inputGetter = new InputGetter(scanner);
+        System.out.println("***********************************************************");
+        System.out.println("Bienvenido a tu sistema de registro y control de empleados");
+        System.out.println("***********************************************************");
+        System.out.println();
+
+
+        boolean isMenuOpened = true;
+        while (isMenuOpened) {
+            var optionsMessage = """
+                    0. Salir.
+                    1. Añadir empleado.
+                    2. Listar empleados.
+                    3. Eliminar empleado.
+                    """;
+            System.out.println(optionsMessage);
+            int option = inputGetter.get("Ingresa la opción que deseas hacer: ", Scanner::nextInt);
+
+
+            switch (option) {
+                case 0 -> {
+                    isMenuOpened = false;
+                }
+                case 1 -> {
+                    System.out.println();
+                    System.out.println("Añadiendo empleado");
+                    System.out.println();
+                    scanner.nextLine();
+                    var nameInput = inputGetter.get("Nombre: ", Scanner::nextLine);
+                    var ageInput = inputGetter.get("Edad: ", Scanner::nextByte);
+                    var salaryInput = inputGetter.get("Salario: ", Scanner::nextFloat);
+
+                    // Contract starting date
+                    var contractStartingDate = askForLocalDate("Fecha de inicio del contrato (Formato: YYYY-MM-DD): ", inputGetter, scanner);
+
+                    // Contract ending date
+                    scanner.nextLine();
+                    var promptContractEndingDate =
+                            String.format("Fecha de fin del contrato (Formato: YYYY-MM-DD)%nNOTA: Escribe 'saltar' si tiene contrato a término indefinido): ");
+                    var contractEndingDateInput = inputGetter.get(promptContractEndingDate, Scanner::nextLine)
+                            .trim().toLowerCase();
+
+                    var SUCCESS_MESSAGE = "¡Empleado añadido con éxito!";
+
+                    if (contractEndingDateInput.equals("saltar")) {
+                        employeeRegistry.addEmployee(nameInput, ageInput, salaryInput, contractStartingDate);
+                        System.out.println(SUCCESS_MESSAGE);
+                        break;
+                    }
+
+                    var parsingResultContractEndingDate = DateStringParser.parse(contractEndingDateInput);
+
+                    if (parsingResultContractEndingDate.isEmpty()) {
+                        System.out.println("Formato de fecha inválido.");
+                        break;
+                    }
+
+                    var contractEndingDate = parsingResultContractEndingDate.get();
+
+                    employeeRegistry.addEmployee(nameInput, ageInput, salaryInput, contractStartingDate, contractEndingDate);
+                    System.out.println(SUCCESS_MESSAGE);
+
+                }
+                case 2 -> {
+                    System.out.println("Listando empleados");
+                    var employees = employeeRegistry.getEmployees();
+                    listEmployees(employees);
+                    System.out.println();
+                    System.out.println();
+                }
+                case 3 -> {
+                    System.out.println("Eliminando empleado");
+                    var employees = employeeRegistry.getEmployees();
+                    listEmployees(employees);
+                    var employeeIdToRemove = inputGetter.get("Ingresa el ID del empleado que deseas eliminar: ", Scanner::nextInt);
+                    var couldRemoveEmployee = employeeRegistry.removeEmployeeById(employeeIdToRemove);
+
+                    if (couldRemoveEmployee)
+                        System.out.printf("Empleado con ID '%d' eliminado con éxito%n%n", employeeIdToRemove);
+                    else System.out.printf("No se encontró un empleado con ID '%d'%n%n", employeeIdToRemove);
+                }
+                default -> {
+                    System.out.println("Opción seleccionada inválida. Inténtalo de nuevo.");
+                    System.out.println();
+                }
+            }
+        }
+    }
 
     public static LocalDate askForLocalDate(String prompt, InputGetter inputGetter, Scanner scanner) {
         while (true) {
@@ -168,11 +135,53 @@ public class EmployeeRegistry {
 
     }
 
-    public void addEmployee(String name, byte age, float salary, LocalDate contractStartingDate) {
+    public static void listEmployees(List<Employee> employees) {
+        var tableHeader = String.format("| %-3s | %-15s | %-4s | %-20s | %-15s | %-15s |", "ID", "Nombre", "Edad", "Salario", "Fecha inicio contrato", "Fecha fin contrato");
+        System.out.println(tableHeader);
+        System.out.println("-".repeat(tableHeader.length()));
 
+        // Table Body
+        for (Employee employee : employees) {
+            switch (employee) {
+                case TemporalEmployee e -> {
+                    var tableRow = String.format("| %-3d | %-15s | %-4d | %,-20.2f | %5$Td/%5$Tm/%5$-14TY  | %6$Td/%6$Tm/%6$-12TY |",
+                            e.getId(), e.getName(), e.getAge(), e.getSalary(), e.getContractStartingDate(), e.getContractEndingDate());
+                    System.out.println(tableRow);
+                }
+                case PermanentEmployee e -> {
+                    var tableRow = String.format("| %-3d | %-15s | %-4d | %,-20.2f | %5$Td/%5$Tm/%5$-14TY  | %6$-18s |",
+                            e.getId(), e.getName(), e.getAge(), e.getSalary(), e.getContractStartingDate(), "n/a");
+                    System.out.println(tableRow);
+
+                }
+                default -> {
+                    try {
+                        throw new ClassNotFoundException("Derived Employee subclass not found ");
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+
+    public void addEmployee(String name, byte age, float salary, LocalDate contractStartingDate) {
+        var newEmployee = new PermanentEmployee(idToAssignToEmployees++, name, age, salary, contractStartingDate);
+        this.employees.add(newEmployee);
     }
 
     public void addEmployee(String name, byte age, float salary, LocalDate contractStartingDate, LocalDate contractEndingDate) {
+        var newEmployee = new TemporalEmployee(idToAssignToEmployees++, name, age, salary, contractStartingDate, contractEndingDate);
+        this.employees.add(newEmployee);
+    }
+
+    public boolean removeEmployeeById(int employeeIdToRemove) {
+        var employeeToRemoveSearch = this.employees.stream().filter(e -> e.getId() == employeeIdToRemove).findFirst();
+
+        return employeeToRemoveSearch.map(employee -> this.employees.remove(employee)).orElse(false);
     }
 
     public List<Employee> getEmployees() {
