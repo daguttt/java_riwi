@@ -1,3 +1,4 @@
+import courses_management.CoursesManager;
 import employee_registry.EmployeeRegistry;
 import inventory.Inventory;
 import utils.InputGetter;
@@ -20,6 +21,7 @@ public class App {
                         0. Salir
                         1. Abrir inventario de productos.
                         2. Abrir gestión de registro de empleados.
+                        3. Abrir gestor de cursos.
                         """;
                 System.out.println(menuOptionsMessage);
                 var option = inputGetter.get("Ingresa el número del sistema que quieres abrir: ", Scanner::nextInt);
@@ -34,6 +36,11 @@ public class App {
                         // Employee registry
                         var employeeRegistry = new EmployeeRegistry();
                         EmployeeRegistry.showMenu(employeeRegistry, scanner);
+                    }
+                    case 3 -> {
+                        // Course Manager
+                        var courseManager = new CoursesManager();
+                        CoursesManager.showMenu(courseManager, scanner);
                     }
                     default -> {
                         System.out.println("Opción seleccionada inválida. Inténtalo de nuevo.");
