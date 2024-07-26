@@ -5,6 +5,7 @@ import models.BooksModel;
 import persistence.Database;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -12,7 +13,11 @@ public class App {
         System.out.println("Authors and Books CRUD");
         System.out.println("***********************************************************");
 
-        var database = new Database();
+        System.out.println(Arrays.toString(args));
+
+        var dbUser = args[0];
+        var dbPassword = args[1];
+        var database = new Database(dbUser, dbPassword);
         var authorsModel = new AuthorsModel(database);
         var booksModel = new BooksModel(database);
         var authorsController = new AuthorsController(authorsModel);
@@ -34,7 +39,7 @@ public class App {
                     9. Update book.
                     10. Delete book.
                     11. Show books by author id.
-                    
+
                     Enter the option you can to run.
                     """;
             var option = JOptionPane.showInputDialog(menuOptionsMessage);

@@ -5,6 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
+    private final String dbUser;
+    private final String dbPassword;
+
+    public Database(String dbUser, String dbPassword) {
+        this.dbUser = dbUser;
+        this.dbPassword = dbPassword;
+    }
 
     private Connection connection = null;
 
@@ -13,11 +20,9 @@ public class Database {
         var port = "22079";
         var databaseName = "jdbc_workshop";
         var url = String.format("jdbc:mysql://%s:%s/%s", host, port, databaseName);
-        var user = "avnadmin";
-        var password = "AVNS_OZzIJuW7s1_g4iK9wCe";
 
         try {
-            this.connection = DriverManager.getConnection(url, user, password);
+            this.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             System.out.println();
             System.out.println("Database connection established");
             System.out.println();
