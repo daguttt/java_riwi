@@ -1,27 +1,27 @@
 package entities;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Book {
     private Integer id = null;
     private String title;
-    private LocalDate publishedDate;
+    private Date publishedDate;
     private float price;
-    private final int authorId;
+    private final int authorsId;
 
-    public Book(Integer id, String title, LocalDate publishedDate, float price, int authorId) {
+    public Book(Integer id, String title, Date publishedDate, float price, int authorsId) {
         this.id = id;
         this.title = title;
         this.publishedDate = publishedDate;
         this.price = price;
-        this.authorId = authorId;
+        this.authorsId = authorsId;
     }
 
-    public Book(String title, LocalDate publishedDate, float price, int authorId) {
+    public Book(String title, Date publishedDate, float price, int authorsId) {
         this.title = title;
         this.publishedDate = publishedDate;
         this.price = price;
-        this.authorId = authorId;
+        this.authorsId = authorsId;
     }
 
     // Getters and Setters
@@ -42,11 +42,11 @@ public class Book {
         this.title = title;
     }
 
-    public LocalDate getPublishedDate() {
+    public Date getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(LocalDate publishedDate) {
+    public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
     }
 
@@ -58,7 +58,18 @@ public class Book {
         this.price = price;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public int getAuthorsId() {
+        return authorsId;
+    }
+
+    @Override
+    public String toString() {
+        var lines = new String[] {
+                String.format("id: %d", this.getId()),
+                String.format("title: %s", this.getTitle()),
+                String.format("published_date: %s", this.getPublishedDate()),
+                String.format("price: %s", this.getPrice()),
+        };
+        return String.join("\n", lines);
     }
 }

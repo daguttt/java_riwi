@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS authors(
 CREATE TABLE IF NOT EXISTS books(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
-    publishedDate DATE NOT NULL,
+    published_date DATE NOT NULL,
     price FLOAT NOT NULL,
     authors_id INT NOT NULL,
     CONSTRAINT fk_author FOREIGN KEY (authors_id) REFERENCES authors (id)

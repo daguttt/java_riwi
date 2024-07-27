@@ -48,7 +48,7 @@ public class AuthorsModel implements Crud<Author> {
     @Override
     public List<Author> findAll() {
         var connection = database.openConnection();
-        var sql = "SELECT * FROM authors;";
+        var sql = "SELECT id, name, nationality FROM authors;";
 
         var authorList = new ArrayList<Author>();
 
@@ -80,20 +80,18 @@ public class AuthorsModel implements Crud<Author> {
         var connection = database.openConnection();
         var sql = "SELECT id, name, nationality FROM authors WHERE id = ?";
 
-        Author author;
+        Author author = null;
         try(var statement = connection.prepareStatement(sql)) {
             statement.setInt(1, authorIdToFind);
 
             var resultSet = statement.executeQuery();
-            if (!resultSet.next()) return null;
-
-            var id = resultSet.getInt("id");
-            var name = resultSet.getString("name");
-            var nationality = resultSet.getString("nationality");
-            author = new Author(id, name, nationality);
-
+            if (resultSet.next()) {
+                var id = resultSet.getInt("id");
+                var name = resultSet.getString("name");
+                var nationality = resultSet.getString("nationality");
+                author = new Author(id, name, nationality);
+            }
             resultSet.close();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -113,6 +111,7 @@ public class AuthorsModel implements Crud<Author> {
                 WHERE id = ?;
                """;
 
+        boolean couldUpdate = false;
         try (var statement = connection.prepareStatement(sql)) {
             statement.setString(1, object.getName());
             statement.setString(2, object.getNationality());
@@ -121,7 +120,7 @@ public class AuthorsModel implements Crud<Author> {
             var affectedRows = statement.executeUpdate();
             statement.close();
 
-            if (affectedRows == 1) return true;
+            if (affectedRows == 1) couldUpdate = true;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -129,7 +128,7 @@ public class AuthorsModel implements Crud<Author> {
         }
 
         database.closeConnection();
-        return false;
+        return couldUpdate;
     }
 
     @Override
@@ -140,21 +139,21 @@ public class AuthorsModel implements Crud<Author> {
                 WHERE id = ?;
                """;
 
+        boolean couldDelete = false;
         try (var statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
 
             var affectedRows = statement.executeUpdate();
             statement.close();
 
-            if (affectedRows == 1) return true;
+            if (affectedRows == 1) couldDelete = true;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
 
         database.closeConnection();
-        return false;
+        return couldDelete;
     }
 
 }

@@ -21,7 +21,7 @@ public class App {
         var authorsModel = new AuthorsModel(database);
         var booksModel = new BooksModel(database);
         var authorsController = new AuthorsController(authorsModel);
-        var booksController = new BooksController(booksModel);
+        var booksController = new BooksController(booksModel, authorsModel);
 
         boolean isMenuOpened = true;
         while (isMenuOpened) {
