@@ -44,6 +44,7 @@ public class Database {
             throw new RuntimeException("ERROR: A database error occurred");
         }
     }
+
     public void testConnection() {
         var connection = openConnection();
         try {
