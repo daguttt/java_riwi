@@ -1,11 +1,11 @@
-package org.example.models;
+package org.example.models.interfaces;
 
 import org.example.entities.Flight;
 
 import java.sql.Date;
 import java.util.List;
 
-public interface IFlightModel {
+public interface IFlightsModel {
 
     Flight create(Flight baseFlight);
 

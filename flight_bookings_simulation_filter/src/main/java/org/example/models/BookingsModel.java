@@ -1,10 +1,18 @@
 package org.example.models;
 
 import org.example.entities.Booking;
+import org.example.models.interfaces.IBookingsModel;
+import org.example.persistence.Database;
 
 import java.util.List;
 
-public class BookingsModelImpl implements IBookingsModel {
+public class BookingsModel implements IBookingsModel {
+    private final Database database;
+
+    public BookingsModel(Database database) {
+        this.database = database;
+    }
+
     @Override
     public Booking create(Booking baseBooking) {
         return null;

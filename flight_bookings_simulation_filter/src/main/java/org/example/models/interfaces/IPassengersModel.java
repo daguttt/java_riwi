@@ -1,12 +1,13 @@
-package org.example.models;
+package org.example.models.interfaces;
 
 import org.example.entities.Passenger;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPassengersModel {
 
-    Passenger create(Passenger basePassenger);
+    Optional<Passenger> create(Passenger basePassenger);
 
     List<Passenger> findAllPassengerByName(String nameToFind);
 

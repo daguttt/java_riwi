@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.models.interfaces;
 
 import org.example.entities.Booking;
 

@@ -1,4 +1,4 @@
-package persistence;
+package org.example.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,6 @@ public class Database {
     private final String dbName;
     private final String dbUser;
     private final String dbPassword;
-
 
     public Database(String host, String port, String dbName, String dbUser, String dbPassword) {
         this.host = host;
@@ -25,6 +24,7 @@ public class Database {
     public Connection openConnection() {
         var url = String.format("jdbc:mysql://%s:%s/%s", host, port, dbName);
 
+        System.out.println(url);
         try {
             this.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             System.out.println();
@@ -48,5 +48,4 @@ public class Database {
             throw new RuntimeException("ERROR: A database error occurred");
         }
     }
-
 }
