@@ -19,4 +19,9 @@ public class PassengersModelImpl implements IPassengersModel {
     public boolean update(int id, Passenger passengerToUpdate) {
         return false;
     }
+
+    @Override
+    public boolean delete(int passengerIdToDelete) {
+        return false;
+    }
 }
