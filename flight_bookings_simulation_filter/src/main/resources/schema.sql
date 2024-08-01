@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS passengers(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     lastname VARCHAR(150) NOT NULL,
-    document_number VARCHAR(15) NOT NULL
+    document_number VARCHAR(15) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS planes(
