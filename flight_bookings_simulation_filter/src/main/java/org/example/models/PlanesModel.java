@@ -6,6 +6,7 @@ import org.example.persistence.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class PlanesModel implements IPlanesModel {
     private final Database database;
@@ -48,11 +49,11 @@ public class PlanesModel implements IPlanesModel {
     }
 
     @Override
-    public Plane findById(int planeIdToFind) {
+    public Optional<Plane> findById(int planeIdToFind) {
         var connection = database.openConnection();
         var sql = "SELECT id, model, capacity FROM planes WHERE id = ?";
 
-        Plane plane = null;
+        Optional<Plane> plane = Optional.empty();
         try(var statement = connection.prepareStatement(sql)) {
             statement.setInt(1, planeIdToFind);
 
@@ -61,7 +62,7 @@ public class PlanesModel implements IPlanesModel {
                 var id = resultSet.getInt("id");
                 var model = resultSet.getString("model");
                 var capacity = resultSet.getInt("capacity");
-                plane = new Plane(id, model, capacity);
+                plane = Optional.of(new Plane(id, model, capacity));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -73,7 +74,29 @@ public class PlanesModel implements IPlanesModel {
     }
 
     @Override
-    public boolean delete(int planeIdToRemove) {
-        return false;
+    public boolean delete(int planeIdToDelete) {
+        var connection = database.openConnection();
+        var sql = """
+                DELETE FROM planes\s
+                WHERE id = ?;
+               """;
+
+        boolean couldDelete = false;
+        try (var statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, planeIdToDelete);
+
+            var affectedRows = statement.executeUpdate();
+            statement.close();
+
+            if (affectedRows == 1) couldDelete = true;
+
+        } catch (SQLException e) {
+            System.out.printf("Error deleting plane (Error %s): %s%nplaneId: %d", e.getClass(), e.getMessage(), planeIdToDelete);
+            couldDelete = false;
+        }
+
+        database.closeConnection();
+        return couldDelete;
+
     }
 }

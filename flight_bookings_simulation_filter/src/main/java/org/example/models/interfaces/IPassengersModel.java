@@ -9,9 +9,11 @@ public interface IPassengersModel {
 
     Optional<Passenger> create(Passenger basePassenger);
 
-    List<Passenger> findAllPassengerByName(String nameToFind);
+    Optional<Passenger> findById(int passengerIdToFind);
 
-    boolean update(int id, Passenger passengerToUpdate);
+    List<Passenger> findAllByName(String nameQuery);
+
+    boolean update(int passengerId, Passenger passengerToUpdate);
 
     boolean delete(int passengerIdToDelete);
 }

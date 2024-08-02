@@ -1,15 +1,15 @@
 package org.example.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Booking {
     private int id;
-    private int passengersId;
-    private int flightsId;
-    private Date bookingDate;
+    private final int passengersId;
+    private final int flightsId;
+    private final Timestamp bookingDate;
     private String seat;
 
-    public Booking(int id, int passengersId, int flightsId, Date bookingDate, String seat) {
+    public Booking(int id, int passengersId, int flightsId, Timestamp bookingDate, String seat) {
         this.id = id;
         this.passengersId = passengersId;
         this.flightsId = flightsId;
@@ -17,7 +17,7 @@ public class Booking {
         this.seat = seat;
     }
 
-    public Booking(int passengersId, int flightsId, Date bookingDate, String seat) {
+    public Booking(int passengersId, int flightsId, Timestamp bookingDate, String seat) {
         this.passengersId = passengersId;
         this.flightsId = flightsId;
         this.bookingDate = bookingDate;
@@ -36,24 +36,12 @@ public class Booking {
         return passengersId;
     }
 
-    public void setPassengersId(int passengersId) {
-        this.passengersId = passengersId;
-    }
-
     public int getFlightsId() {
         return flightsId;
     }
 
-    public void setFlightsId(int flightsId) {
-        this.flightsId = flightsId;
-    }
-
-    public Date getBookingDate() {
+    public Timestamp getBookingDate() {
         return bookingDate;
-    }
-
-    public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
     }
 
     public String getSeat() {
@@ -70,7 +58,7 @@ public class Booking {
                 String.format("id: %d", getId()),
                 String.format("passengersId: %d", getPassengersId()),
                 String.format("flightsId: %d", getFlightsId()),
-                String.format("bookingDate: %1$Te/%1$Tm/%1$TY", getBookingDate()),
+                String.format("bookingDate: %1$Te/%1$Tm/%1$TY %1$Tr", getBookingDate()),
                 String.format("seat: %s", getSeat()),
         };
         return String.join("\n", lines);

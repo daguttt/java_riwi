@@ -1,26 +1,27 @@
 package org.example.entities;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Flight {
     private int id;
-    private String destination;
-    private Timestamp startingDate;
-    private Timestamp endingDate;
-    private int planesId;
+    private final String destination;
+    private Date departureDate;
+    private Time departureTime;
+    private final int planesId;
 
-    public Flight(int id, String destination, Timestamp startingDate, Timestamp endingDate, int planesId) {
+    public Flight(int id, String destination, Date departureDate, Time departureTime, int planesId) {
         this.id = id;
         this.destination = destination;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
         this.planesId = planesId;
     }
 
-    public Flight(String destination, Timestamp startingDate, Timestamp endingDate, int planesId) {
+    public Flight(String destination, Date departureDate, Time departureTime, int planesId) {
         this.destination = destination;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
         this.planesId = planesId;
     }
 
@@ -36,32 +37,24 @@ public class Flight {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public Timestamp getStartingDate() {
-        return startingDate;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
-    public void setStartingDate(Timestamp startingDate) {
-        this.startingDate = startingDate;
+    public Time getDepartureTime() {
+        return departureTime;
     }
 
-    public Timestamp getEndingDate() {
-        return endingDate;
-    }
-
-    public void setEndingDate(Timestamp endingDate) {
-        this.endingDate = endingDate;
+    public void setDepartureTime(Time departureTime) {
+        this.departureTime = departureTime;
     }
 
     public int getPlanesId() {
         return planesId;
-    }
-
-    public void setPlanesId(int planesId) {
-        this.planesId = planesId;
     }
 
     @Override
@@ -69,8 +62,7 @@ public class Flight {
         var lines = new String[] {
                 String.format("id: %d", getId()),
                 String.format("destination: %s", getDestination()),
-                String.format("startingDate: %1$Te/%1$Tm/%1$TY %1$Tr", getStartingDate()),
-                String.format("endingDate: %1$Te/%1$Tm/%1$TY %1$Tr", getEndingDate()),
+                String.format("departure: %1$Te/%1$Tm/%1$TY %2$Tr", getDepartureDate(), getDepartureTime()),
                 String.format("planesId: %d", getPlanesId()),
         };
         return String.join("\n", lines);

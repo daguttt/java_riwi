@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS planes(
 CREATE TABLE IF NOT EXISTS flights(
     id INT PRIMARY KEY AUTO_INCREMENT,
     destination VARCHAR(255) NOT NULL,
-    starting_date DATETIME NOT NULL,
-    ending_date DATETIME NOT NULL,
+    departure_date DATE NOT NULL,
+    departure_time TIME NOT NULL,
     planes_id INT NOT NULL,
     CONSTRAINT fk_planes_id FOREIGN KEY (planes_id) REFERENCES planes(id)
 );
@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS bookings(
     passengers_id INT NOT NULL,
     flights_id INT NOT NULL,
     CONSTRAINT fk_passengers_id FOREIGN KEY (passengers_id) REFERENCES passengers(id),
-    CONSTRAINT fk_flights_id FOREIGN KEY (flights_id) REFERENCES flights(id)
+    CONSTRAINT fk_flights_id FOREIGN KEY (flights_id) REFERENCES flights(id),
+    CONSTRAINT un_seat_in_flight UNIQUE(flights_id, seat)
 );
 
 COMMIT;

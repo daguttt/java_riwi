@@ -2,12 +2,14 @@ package org.example.models.interfaces;
 
 import org.example.entities.Plane;
 
+import java.util.Optional;
+
 public interface IPlanesModel {
 
     Plane create(Plane basePlane);
 
-    Plane findById(int planeIdToFind);
+    Optional<Plane> findById(int planeIdToFind);
 
-    boolean delete(int planeIdToRemove);
+    boolean delete(int planeIdToDelete);
 
 }

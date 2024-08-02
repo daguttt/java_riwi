@@ -3,6 +3,8 @@ package org.example.controllers;
 import org.example.entities.Plane;
 import org.example.models.interfaces.IPlanesModel;
 
+import java.util.Optional;
+
 public class
 PlanesController {
     private final IPlanesModel planesModel;
@@ -15,8 +17,11 @@ PlanesController {
         return this.planesModel.create(basePlane);
     }
 
-    public Plane findById(int planeIdToFind) {
+    public Optional<Plane> findById(int planeIdToFind) {
         return this.planesModel.findById(planeIdToFind);
     }
 
+    public boolean delete(int planeId) {
+        return this.planesModel.delete(planeId);
+    }
 }
